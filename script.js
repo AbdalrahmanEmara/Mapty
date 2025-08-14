@@ -75,9 +75,13 @@ class App {
   #workouts = [];
 
   constructor() {
-    // Is executed when App Object is created
+    // Get current location
     this._getPosition();
 
+    // Get data from local storage
+    this._getLocalStorage();
+
+    // Event handlers
     form.addEventListener('submit', this._newWorkout.bind(this));
 
     // Change type of Workout
@@ -114,6 +118,11 @@ class App {
 
     // Handling clicks on map
     this.#map.on('click', this._showForm.bind(this));
+
+    // Handle markers
+    this.#workouts.forEach(work => {
+      this._renderWorkoutMarker(work);
+    });
   }
 
   _showForm(mapE) {
@@ -184,7 +193,6 @@ class App {
 
     // Add new object to workouts array
     this.#workouts.push(workout);
-    console.log(this.#workouts);
 
     // Render workout on map as marker
     this._renderWorkoutMarker(workout);
@@ -195,7 +203,8 @@ class App {
     // Hide form + clear input fields
     this._hideForm();
 
-    // Render marker on map
+    // Set local storage to all workouts
+    this._setLocalStorage();
   }
 
   _renderWorkoutMarker(workout) {
@@ -283,9 +292,37 @@ class App {
       },
     });
 
-    workout._click();
-    console.log(workout);
+    // workout._click();
+  }
+
+  _setLocalStorage() {
+    localStorage.setItem('workouts', JSON.stringify(this.#workouts));
+  }
+
+  _getLocalStorage() {
+    const data = JSON.parse(localStorage.getItem('workouts'));
+
+    if (!data) return;
+
+    this.#workouts = data;
+
+    this.#workouts.forEach(work => {
+      this._renderWorkout(work);
+    });
+  }
+
+  reset() {
+    localStorage.removeItem('workouts');
+    location.reload();
   }
 }
 
 const app = new App();
+
+const btnReset = document.querySelector('.btn__reset');
+btnReset.addEventListener('click', app.reset)
+
+// Notes
+// if you convert object to string and then return it to object, it will lost the its prototype. (this problem happens when you work with local storage and oop)
+
+// ==> solution: loop over data from local storage and creating new objects using a class based on the data, but that is a lot of work
