@@ -320,7 +320,7 @@ class App {
 const app = new App();
 
 const btnReset = document.querySelector('.btn__reset');
-btnReset.addEventListener('click', app.reset)
+btnReset.addEventListener('click', app.reset.bind(this));
 
 // Notes
 // if you convert object to string and then return it to object, it will lost the its prototype. (this problem happens when you work with local storage and oop)

@@ -228,3 +228,95 @@ a:visited {
   border: none;
   border-radius: 10px;
 }
+
+/* =====================
+   RESPONSIVE MEDIA QUERIES
+   ===================== */
+
+/* Medium screens (tablets, < 1024px) */
+@media (max-width: 1024px) {
+  body {
+    flex-direction: column;
+    padding: 1rem;
+  }
+
+  .sidebar {
+    flex-basis: auto;
+    width: 100%;
+    padding: 2rem;
+    order: 2;
+  }
+
+  #map {
+    order: 1;
+    height: 50vh;
+    flex: none;
+  }
+
+  .logo {
+    height: 4rem;
+    margin-bottom: 2rem;
+  }
+
+  .workouts {
+    height: auto;
+    max-height: 40vh;
+  }
+}
+
+/* Small screens (phones, < 600px) */
+@media (max-width: 600px) {
+  html {
+    font-size: 55%;
+  }
+
+  .sidebar {
+    padding: 1.5rem;
+  }
+
+  .logo {
+    height: 3.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .workout {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+  }
+
+  .form {
+    grid-template-columns: 1fr;
+    height: auto;
+    gap: 1rem;
+  }
+
+  .form__label {
+    flex: 0 0 auto;
+    width: 80%;
+  }
+
+  .btn__reset {
+    padding: 8px 16px;
+    font-size: 1.3rem;
+  }
+
+  #map {
+    height: 40vh;
+  }
+}
+
+/* Extra small screens (< 400px) */
+@media (max-width: 400px) {
+  html {
+    font-size: 50%;
+  }
+
+  .form__input {
+    font-size: 1.3rem;
+  }
+
+  .btn__reset {
+    width: 100%;
+    text-align: center;
+  }
+}
